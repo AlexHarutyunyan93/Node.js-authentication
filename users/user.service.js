@@ -48,6 +48,9 @@ async function create(userParam) {
 
     // save user
     await user.save();
+    const token = jwt.sign({ sub: user.id }, config.secret);
+
+    return getById(user.id);
 }
 
 async function update(id, userParam) {
