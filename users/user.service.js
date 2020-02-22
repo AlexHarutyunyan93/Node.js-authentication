@@ -41,19 +41,20 @@ async function create(userParam) {
 
     const user = new User(userParam);
 
-    // hash password
     if (userParam.password) {
         user.hash = bcrypt.hashSync(userParam.password, 10);
     }
 
-    // save user
     await user.save();
-    const token = jwt.sign({ sub: user.id }, config.secret);
 
-    return getById(user.id).then(user => ({
-        ...user,
+    const responseUser = await User.findOne({ username: userParam.username });
+    const { hash, ...userWithoutHash } = responseUser.toObject();
+    const token = jwt.sign({ sub: responseUser.id }, config.secret);
+    return {
+        ...userWithoutHash,
         token
-    }))
+    };
+
 
 }
 
