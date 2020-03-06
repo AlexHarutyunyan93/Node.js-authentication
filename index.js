@@ -16,8 +16,9 @@ app.use(cors(corsOptions));
 
 app.use(jwt());
 
-//app.use('/api', require('./routes/route'));
-app.use('/users', require('./users/user.controller'));
+app.use('/auth', require('./controllers/auth.controller'));
+app.use('/user', require('./controllers/user.controller'));
+
 app.use(errorHandler);
 
 const port = process.env.NODE_ENV === 'production' ? (process.env.PORT || 80) : 7070;

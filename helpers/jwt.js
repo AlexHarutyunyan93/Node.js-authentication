@@ -9,14 +9,13 @@ function jwt() {
     return expressJwt({ secret, isRevoked }).unless({
         path: [
             // public routes that don't require authentication
-            '/users/authenticate',
-            '/users/register',
+            '/auth/authenticate',
+            '/auth/register',
         ]
     });
 }
 
 async function isRevoked(req, payload, done) {
-    console.log(payload)
     const user = await userService.getById(payload.sub);
 
     // revoke token if user no longer exists
