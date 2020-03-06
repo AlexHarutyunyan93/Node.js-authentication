@@ -8,10 +8,15 @@ const User = db.User;
 module.exports = {
     getById,
     update,
+    getCurrent,
     delete: _delete
 };
 
 async function getById(id) {
+    return await User.findById(id).select('-hash');
+}
+
+async function getCurrent(id) {
     return await User.findById(id).select('-hash');
 }
 

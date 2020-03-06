@@ -16,8 +16,8 @@ app.use(cors(corsOptions));
 
 app.use(jwt());
 
-app.use('/auth', require('./controllers/auth.controller'));
-app.use('/user', require('./controllers/user.controller'));
+app.use('/auth', require('./controllers/auth.controllers'));
+app.use('/users', require('./controllers/user.controllers'));
 
 app.use(errorHandler);
 
