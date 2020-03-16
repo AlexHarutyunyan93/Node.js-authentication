@@ -17,7 +17,19 @@ async function getById(id) {
 }
 
 async function getCurrent(id) {
-    return await User.findById(id).select('-hash');
+    const user = await User.findById(id).select('-hash');
+    const { hash, ...userWithoutHash } = user.toObject();
+    const token = jwt.sign({ sub: user.id }, config.secret);
+    if(user){
+        return {
+            ...userWithoutHash,
+            token
+        };
+    } else {
+        return user;
+    }
+
+
 }
 
 async function update(id, userParam) {

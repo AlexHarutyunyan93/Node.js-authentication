@@ -12,7 +12,7 @@ module.exports = router;
 
 
 function getCurrent(req, res, next) {
-    userService.getById(req.params.id)
+    userService.getCurrent(req.params.id)
     .then(user => user ? res.json(user) : res.sendStatus(404))
     .catch(err => next(err));
 }
